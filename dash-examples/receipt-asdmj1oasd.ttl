@@ -7,13 +7,15 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <https://example.org/> .
 @prefix schema: <https://schema.org/> .
+@prefix fibo: <https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/> .
+@prefix cmns-txt: <https://www.omg.org/spec/Commons/TextDatatype/> .
 
 <https://example.com/receipt-asdmj1oasd>
   a dpv:ConsentReceipt ;
   dcterms:conformsTo <https://w3id.org/dpv/schema/dpv-27560#receipt> ;
   dcterms:created "2024-01-31T13:20:00"^^xsd:dateTime ;
   dcterms:identifier "receipt-asdmj1oasd"^^xsd:string ;
-  dcterms:publisher ex:Acme ;
+  dcterms:publisher ex:Delta ;
   dpv:hasRecordOfActivity <https://example.com/a6f58318-72e6-46a2-bfd7-f36d795e30cd> ;
   schema:recipient dpv:DataSubject .
 
@@ -33,8 +35,8 @@
     dpv:isIndicatedAtTime "2024-04-20T18:24:30"^^xsd:dateTime ;
     dpv:isIndicatedBy dpv:DataSubject
   ] ;
-  dpv:hasDataController ex:Acme ;
-  dpv:hasDataProcessor ex:Beta ;
+  dpv:hasDataController ex:Delta ;
+  dpv:hasDataProcessor ex:Omega ;
   dpv:hasDataSubject ex:0760c9ba ;
   dpv:hasInvolvementControl [
     a dpv:ProvidingPermission, dpv:WithdrawingPermission ;
@@ -44,7 +46,7 @@
   dpv:hasNotice <https://example.com/notices/a6f58318-72e6-46a2-bfd7-f36d795e30cd> ;
   dpv:hasProcess [
     a dpv:Process ;
-    dpv:hasRecipient ex:Acme, ex:Beta ;
+    dpv:hasRecipient ex:Delta, ex:Omega ;
     dpv:hasPurpose dpv:PaymentManagement ;
     dpv:hasPersonalData pd:EmailAddress ;
     dpv:hasStorageCondition [
@@ -71,3 +73,52 @@
   dcterms:language "EN"^^xsd:string .
 
 ex:0760c9ba a dpv:Consumer .
+
+ex:Delta a dpv:DataController ;
+    dpv:hasName "Delta Inc."^^xsd:string ;
+    dpv:hasIdentifier "PT-kjsdfyg48b"^^xsd:string ;
+    schema:contactPoint [
+        a schema:ContactPoint ;
+        schema:telephone "Customer service"^^xsd:string ;
+        schema:url "+1-401-555-1212"^^xsd:string ;
+    ] ;
+    schema:contactPoint [
+        a schema:PostalAddress ;
+        schema:streetAddress "Example Avenue, 000-000, Example Locality, Example Region, Example Country"^^xsd:string
+    ] .
+
+ex:Omega a dpv:DataProcessor ;
+    dpv:hasName "Omega Inc."^^xsd:string ;
+    dcterms:identifier <https://example.com/OmegaInc> ;
+    dpv:hasIdentifier [
+        a fibo:TaxIdentifier ;
+        cmns-txt:hasTextValue "PT-gj23746b"^^xsd:string ;
+    ] ;
+    schema:contactPoint [
+        a schema:ContactPoint ;
+        schema:email <mailto:contact@example.com> ;
+    ] ;
+    schema:contactPoint [
+        a schema:ContactPoint ;
+        schema:telephone "+00-000-000"^^xsd:string ;
+    ] ;
+    schema:contactPoint [
+        a schema:ContactPoint ;
+        schema:url <https://example.com/> ;
+    ] ;
+    schema:contactPoint [
+        a schema:ContactPoint ;
+        schema:url [
+            a schema:PropertyValue ;
+            schema:name dpv:PrivacyNotice ;
+            schema:url <https://example.com/privacy-policy> ;
+        ]
+    ] ;
+    schema:contactPoint [
+        a schema:PostalAddress ;
+        schema:streetAddress "Example Avenue"^^xsd:string ;
+        schema:postalCode "000-000"^^xsd:string ;
+        schema:addressLocality "Example Locality"^^xsd:string ;
+        schema:addressRegion "Example Region"^^xsd:string ;
+        schema:addressCountry "Example Country"^^xsd:string 
+    ] .
